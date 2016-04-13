@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/pay_choose_notice_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/shop_choose_str" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BFA78D" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/pay_payway_scrollv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+		android:scrollbars="@null"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <zty.sdk.views.MyListView
+                android:id="@+id/pay_payway_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/pay_gnam_devider_icon" />
+
+           <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#BFA78D" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/pay_payway_paybt"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pay_pay_btn"
+        android:visibility="gone" />
+
+</LinearLayout>

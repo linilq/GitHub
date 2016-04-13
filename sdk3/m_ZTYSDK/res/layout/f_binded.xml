@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="280dp"
+    android:layout_gravity="center"
+    android:background="@drawable/sdk_main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <include layout="@layout/mzyw_pp_title" />
+
+        <include layout="@layout/mzyw_pp_logo" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/binded_icon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <!-- <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/mz_text_dsh"
+            android:text="当前状态：" /> -->
+
+        <TextView
+            android:id="@+id/binded_bindpnum_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="已绑定手机135****2957"
+            android:textColor="@color/mz_text_zbh" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/mz_text_dsh"
+        android:text="温馨提示：可通过手机号登陆或找回密码" />
+
+    <Button 
+        android:id="@+id/binded_unbind_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/unbind_btn"/>
+</LinearLayout>

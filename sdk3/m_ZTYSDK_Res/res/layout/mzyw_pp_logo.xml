@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:layout_marginTop="5dp"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/mzyw_logo" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="4dp"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/logo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="2dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/mzyw_passport"
+            android:textColor="@color/xdw_black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/logo_add_date"
+            android:layout_width="80dp"
+            android:layout_height="13dp"
+            android:layout_below="@id/logo_title"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/mzyw_webadd"
+            android:textColor="@color/mz_text_thj" />
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:background="#ffffff"/>
+
+</LinearLayout>

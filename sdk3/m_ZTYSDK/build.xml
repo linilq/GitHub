@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project default="publish" name="Game SDK Build Script" basedir=".">
+
+    <property name="android.home" value="D:\android-sdk"/>
+    <property name="android.ndk" value="D:\android-ndk"/>
+    <property name="android.sdk_version" value="8"/>
+    <property name="lib.name" value="shoumeng_game_sdk.jar"/>
+    <property name="src.dir" value="src"/>
+    <property name="dest.dir" value="jar"/>
+    <property name="lib.dir" value="libs"/>
+    <property name="layout.dir" value="res/layout"/>
+
+    <path id="classpath">
+        <pathelement path="${android.home}\platforms\android-${android.sdk_version}\android.jar"/>
+        <pathelement path="${lib.dir}\alipay_msp.jar"/>
+        <pathelement path="${lib.dir}\umeng_sdk.jar"/>
+    </path>
+
+	<target name="init" description="Makes the lib directory.">
+        <delete dir="${dest.dir}"/>
+        <mkdir dir="${dest.dir}"/>
+    </target>
+
+    <target name="compile" depends="init" description="Compile the java source.">
+        <javac srcdir="${src.dir}" destdir="${dest.dir}" encoding="UTF-8" debug="on" source="1.6" deprecation="false">
+			<classpath refid="classpath"/>
+		</javac>
+    </target>
+
+    <fileset id="resources" dir="${src.dir}">
+        <include name="**/*.properties"/>
+        <include name="**/*.gif"/>
+        <include name="**/*.jpg"/>
+        <include name="**/*.png"/>
+        <include name="**/*.apk"/>
+    </fileset>
+
+    <target name="jar" depends="compile" description="Make the library.">
+        <jar jarfile="${lib.name}" basedir="${dest.dir}">
+            <fileset refid="resources"/>
+        </jar>
+        <delete dir="${dest.dir}"/>
+        <move file="${lib.name}" todir="${lib.dir}"/>
+    </target>
+
+    <target name="publish" depends="jar" description="Publish to the app path">
+        <copydir src="${lib.dir}" dest="D:\shoumeng\GameSDK\Demo\${lib.dir}"/>
+    </target>
+
+</project>

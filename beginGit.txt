@@ -1,0 +1,42 @@
+Git is a version control system.
+Git is free for everyone;
+11/1/2015 15:36
+now I am trying to change some content.
+
+现在总结一下今天学的内容：
+
+git status      告诉你有文件被修改过；
+
+git diff         可以查看修改内容；
+
+git log          可以查看修改日志；
+
+关联远程Git库的步骤：
+1.创建ssh key
+打开shell界面，执行：
+ssh-keygen -t rsa -C "youremail@example.com"
+随后按照提示可以将目标文件保存到自定义目录，或者不输入任何字符串，
+保存到系统用户主目录
+密码可以输入，也可以不输入，为了安全，建议设置密码；
+id_rsa是私匙；
+id_rsa.pub是公匙，需要添加到你的github SSH Keys中；
+
+2.将一个本地文件夹初始化为本地库：
+    #初始化
+	git init
+	#可以先加一个本地文件到库中： 
+	git add text.txt
+	#提交本地版本管理
+	git commit -m "some words to describe your actions"
+3.添加远程库关联：
+	#获得远程库连接
+    git remote add origin git@github.com:linilq/GitHub.git
+	#将当前目录的文件推送到远程服务器
+	git push -u origin master
+	
+4.通过以上的工作之后就有了一个与远程连接的本地版本管理库，
+当库中的内容发生改变时，先进行本地提交，然后执行远程push即可
+	
+	
+
+

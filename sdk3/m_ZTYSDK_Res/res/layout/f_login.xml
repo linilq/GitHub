@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="280dp"
+    android:layout_gravity="center"
+    android:background="@drawable/sdk_main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <include layout="@layout/mzyw_pp_title" />
+
+        <include layout="@layout/mzyw_pp_logo" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_bg"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/user_icon" />
+
+        <EditText
+            android:id="@+id/login_name_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical|left"
+            android:hint="@string/login_name_hint_str"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="13sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/login_delete_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/delete_account_btn1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_bg"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/psd_icon" />
+
+        <EditText
+            android:id="@+id/login_psd_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical|left"
+            android:hint="@string/login_pwd_promit_str"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="13sp" >
+        </EditText>
+
+        <ImageView
+            android:id="@+id/login_showpsd_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/show_icon" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_btn" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:id="@+id/login_fpsd_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="忘记密码 ？"
+            android:textColor="@color/mz_text_thj" />
+
+        <TextView
+            android:id="@+id/login_regist_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:text="账号注册 >>"
+            android:textColor="@color/mz_text_thj" />
+    </RelativeLayout>
+
+</LinearLayout>

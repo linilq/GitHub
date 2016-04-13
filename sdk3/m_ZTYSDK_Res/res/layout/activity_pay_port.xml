@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/sdk_main_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/mzyw_pay_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" >
+
+        <TextView
+            android:id="@+id/pay_usname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="账号："
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/pay_mzleft_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/pay_mzleft_tv"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="余额："
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" >
+
+        <TextView
+            android:id="@+id/pay_gname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="红警.天启的狂怒"
+            android:textColor="@color/xdw_black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/pay_amount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="金额：5.00元"
+            android:textColor="#FF8700" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/pay_container_devider_icon2" />
+
+    <FrameLayout
+        android:id="@+id/pay_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp" >
+    </FrameLayout>
+
+</LinearLayout>

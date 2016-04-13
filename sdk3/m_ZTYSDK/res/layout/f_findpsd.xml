@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="280dp"
+    android:layout_gravity="center"
+    android:background="@drawable/sdk_main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <include layout="@layout/mzyw_pp_title" />
+
+        <include layout="@layout/mzyw_pp_logo" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/mz_text_thj"
+        android:text="请输入要找回密码帐号绑定的手机号码：" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_bg"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/phone_icon" />
+
+        <EditText
+            android:id="@+id/findpsd_pnum_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical|left"
+            android:hint="@string/bind_promit_01"
+            android:singleLine="true"
+            android:inputType="number"
+            android:textSize="13sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/findpsd_submit_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/findpsd_submit_btn" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mz_text_thj"
+            android:text="如果没有绑定手机，请" />
+
+        <TextView
+            android:id="@+id/findpsd_cs_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/findpsd_forservice_str"
+            android:textColor="@color/mz_text_zbh" />
+    </LinearLayout>
+
+</LinearLayout>

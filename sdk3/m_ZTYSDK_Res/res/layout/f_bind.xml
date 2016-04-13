@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="280dp"
+    android:layout_gravity="center"
+    android:background="@drawable/sdk_main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <include layout="@layout/mzyw_pp_title" />
+
+        <include layout="@layout/mzyw_pp_logo" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bind_phnum_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_bg"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/phone_icon" />
+
+        <EditText
+            android:id="@+id/bind_phnum_et"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="1234567890"
+            android:gravity="center_vertical|left"
+            android:hint="@string/bind_promit_01"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textSize="13sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bind_unbind_notice_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="\t\t您即将执行解除绑定操作，点击获取验证码后，我们会将验证码以短信形式发送到您的绑定手机，请注意查收"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/edit_bg"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/code_icon" />
+
+            <EditText
+                android:id="@+id/bind_code_et"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="1234567890"
+                android:gravity="center_vertical|left"
+                android:hint="@string/bind_promit_03"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textSize="13sp" >
+            </EditText>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bind_getcode_bt"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bind_getcode_bg"
+            android:text="@string/bind_getcode_bt_str"
+            android:textColor="@color/xdw_white"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bind_submit_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bind_submit_btn" />
+
+</LinearLayout>
