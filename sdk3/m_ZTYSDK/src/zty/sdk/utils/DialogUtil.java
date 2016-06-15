@@ -2,6 +2,7 @@ package zty.sdk.utils;
 
 import zty.sdk.game.Constants;
 import zty.sdk.game.GameSDK;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -173,7 +175,8 @@ public class DialogUtil {
 	public static class CustomExitDialog1 extends Dialog {
 		public CustomExitDialog1(Context context, String url,
 				DialogCallBack... cbacks) {
-			this(context, Helper.getResStyle(context, "CustomProgressDialog"), url, cbacks);
+			this(context, Helper.getResStyle(context, "mzProgressDialog"),
+					url, cbacks);
 		}
 
 		private DialogCallBack[] callbacks;
@@ -187,26 +190,29 @@ public class DialogUtil {
 			super(context, theme);
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-			View view = inflater.inflate(Helper.getLayoutId(context, "dialog_notice4"), null);
+			View view = inflater.inflate(
+					Helper.getLayoutId(context, "dialog_notice4"), null);
 			this.setContentView(view);
 
-			ImageView closeIv = (ImageView) view
-					.findViewById(Helper.getResId(context, "dialog_exit_close_iv"));
-			ImageView activityIv = (ImageView) view
-					.findViewById(Helper.getResId(context, "dialog_exit_activity_iv"));
-			ImageView giftIv = (ImageView) view
-					.findViewById(Helper.getResId(context, "dialog_exit_gift_iv"));
-			ImageView quitIv = (ImageView) view
-					.findViewById(Helper.getResId(context, "dialog_exit_mbt_iv"));
+			ImageView closeIv = (ImageView) view.findViewById(Helper.getResId(
+					context, "dialog_exit_close_iv"));
+			ImageView activityIv = (ImageView) view.findViewById(Helper
+					.getResId(context, "dialog_exit_activity_iv"));
+			ImageView giftIv = (ImageView) view.findViewById(Helper.getResId(
+					context, "dialog_exit_gift_iv"));
+			ImageView quitIv = (ImageView) view.findViewById(Helper.getResId(
+					context, "dialog_exit_mbt_iv"));
 			setDialogCallBack(cbacks);
 
 			activityIv.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					/*if (GameSDK.getInstance().appInstalled) {
-						
-					} else*/ {
+					/*
+					 * if (GameSDK.getInstance().appInstalled) {
+					 * 
+					 * } else
+					 */{
 						String url = "http://www.91muzhi.com/muzhiplat/activity";
 						goBroser(context, url);
 					}
@@ -216,19 +222,18 @@ public class DialogUtil {
 
 				@Override
 				public void onClick(View v) {
-					/*if (GameSDK.getOkInstance().isAppInstalled()) {
-						ComponentName componentName = new ComponentName(
-								"com.mzyw.center",
-								"com.mzyw.center.GameInfoActivity");
-						Intent intent = new Intent();
-						intent.setComponent(componentName);
-						intent.setAction("zty.sdk");
-						intent.putExtra("contUrl",
-								"http://www.91muzhi.com/muzhiplat/api/app/detail/0?mzappId="
-										+ GameSDK.getOkInstance().gameId);
-						intent.putExtra("aimgift", true);
-						context.startActivity(intent);
-					} else*/ {
+					/*
+					 * if (GameSDK.getOkInstance().isAppInstalled()) {
+					 * ComponentName componentName = new ComponentName(
+					 * "com.mzyw.center", "com.mzyw.center.GameInfoActivity");
+					 * Intent intent = new Intent();
+					 * intent.setComponent(componentName);
+					 * intent.setAction("zty.sdk"); intent.putExtra("contUrl",
+					 * "http://www.91muzhi.com/muzhiplat/api/app/detail/0?mzappId="
+					 * + GameSDK.getOkInstance().gameId);
+					 * intent.putExtra("aimgift", true);
+					 * context.startActivity(intent); } else
+					 */{
 						String url = "http://www.91muzhi.com/muzhiplat/mobile/sole/0?mzappId="
 								+ GameSDK.getOkInstance().gameId;
 						goBroser(context, url);
@@ -249,7 +254,8 @@ public class DialogUtil {
 					// 游戏退出时也保存一个在线时长，下次登录就上传，这个是最准确的
 					int afd = 0;
 					afd = (int) (System.currentTimeMillis() / 1000);
-					storage.putString("adff2", String.valueOf(afd - GameSDK.getOkInstance().afdft));
+					storage.putString("adff2",
+							String.valueOf(afd - GameSDK.getOkInstance().afdft));
 					dismiss();
 					if (callbacks[0] != null) {
 						callbacks[0].callBack();
@@ -300,8 +306,9 @@ public class DialogUtil {
 	public static class CustomExitDialog extends Dialog {
 		public CustomExitDialog(Context context, String url,
 				DialogCallBack cback) {
-			
-			this(context, Helper.getResStyle(context, "CustomProgressDialog"), url, cback);
+
+			this(context, Helper.getResStyle(context, "mzProgressDialog"),
+					url, cback);
 		}
 
 		private DialogCallBack positiveCallback;
@@ -315,14 +322,20 @@ public class DialogUtil {
 			super(context, theme);
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-			View view = inflater.inflate(Helper.getLayoutId(context, "dialog_notice3"), null);
+			View view = inflater.inflate(
+					Helper.getLayoutId(context, "dialog_notice3"), null);
 			this.setContentView(view);
 
-			TextView title = (TextView) findViewById(Helper.getResId(context, "logo_title"));
-			TextView content = (TextView) findViewById(Helper.getResId(context, "dialog_exit_content_tv"));
-			Button confirm = (Button) findViewById(Helper.getResId(context, "dialog_exit_confirm_bt"));
-			Button quit = (Button) findViewById(Helper.getResId(context, "dialog_exit_quit_bt"));
-			WebView webView = (WebView) findViewById(Helper.getResId(context, "dialog_exit_web"));
+			TextView title = (TextView) findViewById(Helper.getResId(context,
+					"logo_title"));
+			TextView content = (TextView) findViewById(Helper.getResId(context,
+					"dialog_exit_content_tv"));
+			Button confirm = (Button) findViewById(Helper.getResId(context,
+					"dialog_exit_confirm_bt"));
+			Button quit = (Button) findViewById(Helper.getResId(context,
+					"dialog_exit_quit_bt"));
+			WebView webView = (WebView) findViewById(Helper.getResId(context,
+					"dialog_exit_web"));
 			setDialogCallBack(cback);
 
 			title.setBackgroundColor(Color.TRANSPARENT);
@@ -377,7 +390,8 @@ public class DialogUtil {
 	public static class CustomNormalDialog extends Dialog {
 		public CustomNormalDialog(Context context, String strMessage,
 				DialogCallBack[] cbacks) {
-			this(context, Helper.getResStyle(context, "CustomProgressDialog"), strMessage, cbacks);
+			this(context, Helper.getResStyle(context, "mzProgressDialog"),
+					strMessage, cbacks);
 		}
 
 		private DialogCallBack positiveCallback, negtiveCallback;
@@ -398,11 +412,15 @@ public class DialogUtil {
 
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-			View view = inflater.inflate(Helper.getLayoutId(context, "dialog_notice2"), null);
+			View view = inflater.inflate(
+					Helper.getLayoutId(context, "dialog_notice2"), null);
 			this.setContentView(view);
-			TextView content = (TextView) findViewById(Helper.getResId(context, "dialog_notice_content_tv"));
-			Button confirm = (Button) findViewById(Helper.getResId(context, "dialog_notice_confirm_bt"));
-			Button quit = (Button) findViewById(Helper.getResId(context, "dialog_notice_quit_bt"));
+			TextView content = (TextView) findViewById(Helper.getResId(context,
+					"dialog_notice_content_tv"));
+			Button confirm = (Button) findViewById(Helper.getResId(context,
+					"dialog_notice_confirm_bt"));
+			Button quit = (Button) findViewById(Helper.getResId(context,
+					"dialog_notice_quit_bt"));
 			setDialogCallBack(cbacks);
 			content.setText(strMessage);
 			confirm.setOnClickListener(new View.OnClickListener() {
@@ -449,31 +467,45 @@ public class DialogUtil {
 	public static class CustomNoticeDialog extends Dialog {
 		public CustomNoticeDialog(Context context, String strMessage,
 				String title, DialogCallBack callback) {
-			this(context, Helper.getResStyle(context, "CustomProgressDialog"), strMessage, title,
-					callback);
+			this(context, Helper.getResStyle(context, "mzProgressDialog"),
+					strMessage, title, callback);
 		}
 
 		private DialogCallBack mcallback;
 
-		public CustomNoticeDialog(Context context, int theme, String url,
+		public CustomNoticeDialog(final Context context, int theme, String url,
 				String title, DialogCallBack callback) {
 			super(context, theme);
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-			View view = inflater.inflate(Helper.getLayoutId(context, "dialog_notice1"), null);
+			View view = inflater.inflate(
+					Helper.getLayoutId(context, "dialog_notice1"), null);
 			this.setContentView(view);
 
 			mcallback = callback;
-			TextView titleTv = (TextView) view.findViewById(Helper.getResId(context, "logo_title"));
-			TextView dateaddTv = (TextView) view
-					.findViewById(Helper.getResId(context, "logo_add_date"));
-			ImageView back = (ImageView) view.findViewById(Helper.getResId(context, "back"));
-			ImageView close = (ImageView) view.findViewById(Helper.getResId(context, "close"));
-			WebView webView = (WebView) view.findViewById(Helper.getResId(context, "notice_web"));
+			TextView titleTv = (TextView) view.findViewById(Helper.getResId(
+					context, "logo_title"));
+			TextView dateaddTv = (TextView) view.findViewById(Helper.getResId(
+					context, "logo_add_date"));
+			ImageView back = (ImageView) view.findViewById(Helper.getResId(
+					context, "back"));
+			ImageView close = (ImageView) view.findViewById(Helper.getResId(
+					context, "close"));
+			WebView webView = (WebView) view.findViewById(Helper.getResId(
+					context, "notice_web"));
 
 			webView.getSettings().setJavaScriptEnabled(true);
 			webView.getSettings().setLoadsImagesAutomatically(true);
 			webView.getSettings().setLoadWithOverviewMode(true);
+			webView.setWebViewClient(new WebViewClient() {
+				@Override
+				public boolean shouldOverrideUrlLoading(WebView view, String url) {
+					Uri uri = Uri.parse(url); // url为你要链接的地址
+					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+					((Activity) context).startActivity(intent);
+					return true;
+				}
+			});
 			Util_G.debug_i("LINILQTEST", "加载地址：" + url);
 			webView.loadUrl(url);
 
@@ -511,7 +543,8 @@ public class DialogUtil {
 		 */
 		public CustomProgressDialog(Context context, String strMessage,
 				DialogCallBack callback) {
-			this(context, Helper.getResStyle(context, "CustomProgressDialog"), strMessage, callback);
+			this(context, Helper.getResStyle(context, "mzProgressDialog"),
+					strMessage, callback);
 		}
 
 		private DialogCallBack mcallback;
@@ -522,16 +555,17 @@ public class DialogUtil {
 
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-			View view = inflater.inflate(Helper.getLayoutId(context, "dialog_custompbar"), null);
+			View view = inflater.inflate(
+					Helper.getLayoutId(context, "dialog_custompbar"), null);
 
 			this.setContentView(view);
 
-			TextView tvMsg = (TextView) view
-					.findViewById(Helper.getResId(context, "id_tv_loadingmsg"));
-			ImageView divider = (ImageView) view
-					.findViewById(Helper.getResId(context, "dialog_progress_divider"));
-			ImageView stop = (ImageView) view
-					.findViewById(Helper.getResId(context, "dialog_progress_stop"));
+			TextView tvMsg = (TextView) view.findViewById(Helper.getResId(
+					context, "id_tv_loadingmsg"));
+			ImageView divider = (ImageView) view.findViewById(Helper.getResId(
+					context, "dialog_progress_divider"));
+			ImageView stop = (ImageView) view.findViewById(Helper.getResId(
+					context, "dialog_progress_stop"));
 
 			if (!StringUtil.isEmpty(strMessage)) {
 				tvMsg.setBackgroundDrawable(context.getResources().getDrawable(

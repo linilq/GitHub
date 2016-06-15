@@ -64,8 +64,10 @@ public class LoginFrag extends BaseFragment implements OnClickListener,
 
 	private void showView() {
 		if (comeFrom == 2) {
-			usn_et.setText(sdk.account.getUsn());
-			psd_et.setText(sdk.account.getPsd());
+			if(sdk.account!=null){
+				usn_et.setText(sdk.account.getUsn());
+				psd_et.setText(sdk.account.getPsd());
+			}
 		}
 
 	}
@@ -243,7 +245,18 @@ public class LoginFrag extends BaseFragment implements OnClickListener,
 			// 从快速登陆界面过来的
 			QStartFrag qStartFrag = new QStartFrag();
 			startFragment(qStartFrag);
+		}else if (comeFrom == 3) {
+			// 从找回密码界面过来的
+			if(sdk.account!=null){
+				QStartFrag qStartFrag = new QStartFrag();
+				startFragment(qStartFrag);
+			}else{
+				NewerFragment newerFrag = new NewerFragment();
+				startFragment(newerFrag);
+			}
+			
 		}
+
 	}
 
 	@Override

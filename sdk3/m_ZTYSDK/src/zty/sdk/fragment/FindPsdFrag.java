@@ -63,7 +63,7 @@ public class FindPsdFrag extends BaseFragment implements OnClickListener,
 
 	private void goBack() {
 		LoginFrag loginFrag = new LoginFrag();
-		loginFrag.handler.sendEmptyMessage(2);
+		loginFrag.handler.sendEmptyMessage(3);
 		startFragment(loginFrag);
 
 	}
