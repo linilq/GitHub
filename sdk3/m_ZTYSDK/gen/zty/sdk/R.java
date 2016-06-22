@@ -631,6 +631,6 @@ older
         public static int yeepay_notice=0x7f070043;
     }
     public static final class style {
-        public static int CustomProgressDialog=0x7f080000;
+        public static int mzProgressDialog=0x7f080000;
     }
 }
