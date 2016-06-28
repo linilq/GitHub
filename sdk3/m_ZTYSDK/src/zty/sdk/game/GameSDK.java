@@ -1088,7 +1088,7 @@ public class GameSDK implements InitializeListener, ActivateListener {
 	 * @param identifyCodeCallback
 	 */
 	public void doIdentifyCode(IdentifyCode retCode, String action,
-			IdentifyCodeListener listener) {
+			IdentifyCodeListener listener,Context context) {
 		if (!initalized) {
 			makeToast("初始化失败，请退出程序后再试");
 			return;

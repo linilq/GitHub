@@ -43,18 +43,26 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 	 * 标记是否成功执行过获取验证码
 	 */
 	private boolean doneGetCode = false;
-	private int time = 120;
+	/**
+	 * 短信等待时间，会在每次请求时都预设为120秒
+	 */
+	private int time;
 	/**
 	 * 标记来源，1表示来自快速登陆执行绑定；2表示来自已绑定界面，执行解绑操作
 	 */
 	private int comeFrom;
 
+	private static int _LOGIN = 1;
+	private static int _BACK = 2;
+	private static int _RESET = 3;
+
 	@Override
 	@Nullable
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(Helper.getLayoutId(activity, "f_bind"), container, false);
-		
+		return inflater.inflate(Helper.getLayoutId(activity, "f_bind"),
+				container, false);
+
 	}
 
 	@Override
@@ -76,8 +84,10 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 		submit = findViewById(Helper.getResId(activity, "bind_submit_bt"));
 		pnumEt = findViewById(Helper.getResId(activity, "bind_phnum_et"));
 		codeEt = findViewById(Helper.getResId(activity, "bind_code_et"));
-		bind_phnum_layout = findViewById(Helper.getResId(activity, "bind_phnum_layout"));
-		unbindText = findViewById(Helper.getResId(activity, "bind_unbind_notice_tv"));
+		bind_phnum_layout = findViewById(Helper.getResId(activity,
+				"bind_phnum_layout"));
+		unbindText = findViewById(Helper.getResId(activity,
+				"bind_unbind_notice_tv"));
 
 		close.setVisibility(View.GONE);
 		back.setOnClickListener(this);
@@ -95,7 +105,7 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 			unbindText.setVisibility(View.VISIBLE);
 			submit.setBackgroundDrawable(getResources().getDrawable(
 					Helper.getResDraw(activity, "findpsd_submit_btn")));
-			
+
 		}
 
 	}
@@ -114,6 +124,10 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 	}
 
 	public void goback() {
+		boolean hasMSG = handler.hasMessages(ORDER_CountTime);
+		if(hasMSG)
+			handler.removeMessages(ORDER_CountTime);
+		
 		if (comeFrom == 1) {
 			QStartFrag qStartFrag = new QStartFrag();
 			startFragment(qStartFrag);
@@ -158,7 +172,7 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 
 	private void requestCode(String action) {
 		Util_G.debug_i("LINILQTEST", "获取验证码");
-
+		time = 120;// 先预设等待时间为120秒
 		if (!StringUtil.isEmpty(phnum) && phnum.length() == 11) {
 			getCode.setBackgroundDrawable(activity.getResources().getDrawable(
 					Helper.getResDraw(activity, "bind_getcode_bg3")));
@@ -172,7 +186,8 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 							handler.sendEmptyMessageDelayed(ORDER_CountTime,
 									1000);
 							sdk.makeToast(activity.getResources().getString(
-									Helper.getResStr(activity, "bind_verc_commit_succ_str")));
+									Helper.getResStr(activity,
+											"bind_verc_commit_succ_str")));
 							doneGetCode = true;
 							icode = code;
 						}
@@ -181,13 +196,13 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 						public void onRequestCodeFailure(String errorCode,
 								String Message) {
 							sdk.makeToast(Message);
-							sendOrderNext(3);
+							sendOrderNext(_RESET);
 						}
 
 					}, activity);
 		} else {
-			sdk.makeToast(getResources()
-					.getString(Helper.getResStr(activity, "bind_pnum_error_str")));
+			sdk.makeToast(getResources().getString(
+					Helper.getResStr(activity, "bind_pnum_error_str")));
 		}
 
 	}
@@ -204,7 +219,7 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 							// 1.修改账号状态
 							sdk.onBstatusChange("true", phnum);
 							// 2.停止计时，并且登陆
-							sendOrderNext(1);
+							sendOrderNext(_LOGIN);
 						}
 
 						@Override
@@ -212,9 +227,9 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 								String Message) {
 							sdk.makeToast(Message);
 							// 让计时停止，并且修改验证码获取状态，方便用户重新获取验证码
-							sendOrderNext(3);
+							sendOrderNext(_RESET);
 						}
-					});
+					},activity);
 		} else if (comeFrom == 2) {// 解除绑定
 			sdk.doIdentifyCode(icode, Constants.ACTION_UNBIND,
 					new IdentifyCodeListener() {
@@ -225,7 +240,7 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 							// 1.修改账号状态
 							sdk.onBstatusChange("false", "");
 							// 2.停止计时
-							sendOrderNext(2);
+							sendOrderNext(_BACK);
 
 						}
 
@@ -233,24 +248,29 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 						public void onIdentifyCodeFailure(String errorCode,
 								String Message) {
 							sdk.makeToast(Message);
-							sendOrderNext(3);
+							sendOrderNext(_RESET);
 						}
-					});
+					},activity);
 		}
 	}
 
 	/**
-	 * 停止计时，然后，重置验证码获取按钮，执行next命令；
+	 * 1、停止计时，重置状态
+	 * 2、重置验证码获取按钮，
+	 * 3、执行next命令；
+	 * 4、停止倒计时
 	 * 
 	 * @param next
 	 */
 	public void sendOrderNext(int next) {
 		doneGetCode = false;
 		time = 0;
-		Message msg = Message.obtain();
-		msg.what = ORDER_CountTime;
-		msg.obj = next;
-		handler.sendMessage(msg);
+		enableGetCodeBt();
+		excuteOrder(next);
+		
+		handler.removeMessages(ORDER_CountTime);
+
+		
 	}
 
 	@Override
@@ -264,15 +284,18 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 			if (time > 0) {
 				time--;
 				getCode.setTextSize(12f);
-				String timeStr = String.format(getResources().getString(
-								Helper.getResStr(activity, "bind_getcode_bt_str2")), time);
+				String timeStr = String.format(
+						getResources().getString(
+								Helper.getResStr(activity,
+										"bind_getcode_bt_str2")), time);
 				getCode.setText(timeStr);
 				handler.sendEmptyMessageDelayed(ORDER_CountTime, 1000);
 			} else {
-				// 当time=0时，程序肯定是需要停止计时，此时要让获取验证码的button解禁，
-				// 如果是验证码验证成功时需要登录，不然就是验证码验证失败,需要重新绑定或解绑流程
+				// 当time=0时，表明用户在获取验证码之后一直未输入
+				sdk.makeToast(getResources().getString(
+						Helper.getResStr(activity,
+								"bind_getcode_bt_str3")));
 				enableGetCodeBt();
-				excuteOrder(msg);
 			}
 
 			break;
@@ -297,29 +320,30 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 	 * 
 	 * @param msg
 	 */
-	public void excuteOrder(Message msg) {
-		if (msg.obj != null) {
-			int next = (Integer) msg.obj;
-			if (next == 1) {
-				doLogin();
-			} else if (next == 2) {
-				DialogCallBack callback = new DialogCallBack() {
+	public void excuteOrder(int next) {
+		if (next == _LOGIN) {
+			doLogin();
+		} else if (next == _BACK) {
+			DialogCallBack callback = new DialogCallBack() {
 
-					@Override
-					public void callBack() {
-						// 进入快速登陆界面
-						QStartFrag qStartFrag = new QStartFrag();
-						startFragment(qStartFrag);
-					}
-				};
-				DialogUtil.showNormalDialog(activity, activity.getResources()
-						.getString(Helper.getResStr(activity, "unbindsuc_dialog_notice_str")),
-						new DialogCallBack[] { callback });
+				@Override
+				public void callBack() {
+					// 进入快速登陆界面
+					QStartFrag qStartFrag = new QStartFrag();
+					startFragment(qStartFrag);
+				}
+			};
+			DialogUtil.showNormalDialog(
+					activity,
+					activity.getResources().getString(
+							Helper.getResStr(activity,
+									"unbindsuc_dialog_notice_str")),
+					new DialogCallBack[] { callback });
 
-			} else if (next == 3) {
+		} else if (next == _RESET) {
 
-			}
 		}
+
 	}
 
 	public void doLogin() {
@@ -343,7 +367,7 @@ public class BindFrag extends BaseFragment implements OnClickListener,
 						loginFrag.handler.sendEmptyMessage(2);
 						startFragment(loginFrag);
 					}
-				}, activity,true);
+				}, activity, true);
 
 	}
 }
